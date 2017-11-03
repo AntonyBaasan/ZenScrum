@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.0.0
+MinimumVisualStudioVersion = 10.0.0.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenScrumWebApi", "ZenScrumWebApi\ZenScrumWebApi.csproj", "{44711972-42DF-49C4-8BDE-BCB3CD7A2CAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FE2A7C34-D7DE-4239-9409-AA36FAF769BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagerServiceTest", "Tests\UserManagerServiceTest\UserManagerServiceTest.csproj", "{F04AABCA-6286-49B3-B263-75BD673961F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenScrumWebApiTests", "Tests\ZenScrumWebApiTests\ZenScrumWebApiTests.csproj", "{E7E3D336-9B54-405D-B4D1-D0DCA6900780}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3226EB0B-5FA3-4285-95A8-2686EC87D556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagerService", "Services\UserManagerService\UserManagerService.csproj", "{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44711972-42DF-49C4-8BDE-BCB3CD7A2CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44711972-42DF-49C4-8BDE-BCB3CD7A2CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44711972-42DF-49C4-8BDE-BCB3CD7A2CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44711972-42DF-49C4-8BDE-BCB3CD7A2CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04AABCA-6286-49B3-B263-75BD673961F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04AABCA-6286-49B3-B263-75BD673961F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04AABCA-6286-49B3-B263-75BD673961F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04AABCA-6286-49B3-B263-75BD673961F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7E3D336-9B54-405D-B4D1-D0DCA6900780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7E3D336-9B54-405D-B4D1-D0DCA6900780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7E3D336-9B54-405D-B4D1-D0DCA6900780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7E3D336-9B54-405D-B4D1-D0DCA6900780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F04AABCA-6286-49B3-B263-75BD673961F3} = {FE2A7C34-D7DE-4239-9409-AA36FAF769BB}
+		{E7E3D336-9B54-405D-B4D1-D0DCA6900780} = {FE2A7C34-D7DE-4239-9409-AA36FAF769BB}
+		{13A7F4EE-8BCA-46D5-B18F-75A49F7DC9E9} = {3226EB0B-5FA3-4285-95A8-2686EC87D556}
+	EndGlobalSection
+EndGlobal
