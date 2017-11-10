@@ -1,0 +1,28 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/Users/antony/git/zenscrum/ZenScrumWebApi/ZenScrumWebApi.csproj",
+    "projectName": "ZenScrumWebApi",
+    "projectPath": "/Users/antony/git/zenscrum/ZenScrumWebApi/ZenScrumWebApi.csproj",
+    "outputPath": "/Users/antony/git/zenscrum/ZenScrumWebApi/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {}
+      }
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "Microsoft.AspNetCore.All": {
+          "target": "Package",
+          "version": "2.0.0"
+        }
+      }
+    }
+  }
+}

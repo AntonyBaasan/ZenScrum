@@ -47,7 +47,7 @@
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "compodoc": "./node_modules/.bin/compodoc -p src/client/tsconfig.json",
     "cleanwebapi": "rm -rf ../ZenScrumWebApi/wwwroot/*",
-    "copytowebapi": "cp -r ./dist/prod/* ../ZenScrumWebApi/wwwroot",
+    "copytowebapi": "copyfiles -f ./dist/prod/**/*.* ../ZenScrumWebApi/wwwroot",
     "serve.compodoc": "./node_modules/.bin/compodoc -s"
   },
   "author": "Minko Gechev <mgechev>",
