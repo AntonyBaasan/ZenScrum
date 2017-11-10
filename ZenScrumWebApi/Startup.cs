@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace ZenScrumWebApi
 {
@@ -24,7 +25,13 @@ namespace ZenScrumWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             StartupDependencyInjection.ConfigureServices(services);
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddJsonOptions(opt=>
+                {
+                    // ignores (removes) loop if finds
+                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
