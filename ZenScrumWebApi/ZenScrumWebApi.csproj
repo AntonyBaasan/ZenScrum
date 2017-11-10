@@ -12,4 +12,8 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Services\ModelManager\ModelManager.csproj" />
+    <ProjectReference Include="..\Services\UserManager\UserManager.csproj" />
+  </ItemGroup>
 </Project>
