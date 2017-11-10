@@ -3,7 +3,7 @@
 namespace ZenScrumWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ProjectController : Controller
+    public class ProjectsController : Controller
     {
         // GET
         public IActionResult Index()
@@ -11,4 +11,6 @@ namespace ZenScrumWebApi.Controllers
             return Ok(new {name = "Antony", age = "33"});
         }
     }
+    
+    
 }
