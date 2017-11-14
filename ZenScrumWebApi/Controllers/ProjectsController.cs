@@ -1,18 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using ZenScrum.Services;
+using ZenScrumWebApi.Dto;
 
 namespace ZenScrumWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class ProjectsController : Controller
     {
+        private readonly IZenScrumService _zenScrumService;
+
+        public ProjectsController(IZenScrumService zenScrumService)
+        {
+            _zenScrumService = zenScrumService;
+        }
+
         [HttpGet("")]
         public IActionResult Index()
         {
-            return Ok(new object[]
+            var projects = _zenScrumService.GetProjects();
+
+            var projectDtos = projects.Select(p =>
             {
-                new {id = 1, name = "Antony", age = "33"},
-                new {id = 2, name = "Bold", age = "3"}
-            });
+                return new ProjectDto {Id = p.Id, Name = p.Name, Details = p.Details, Moniker = p.Moniker};
+            }).ToArray();
+
+            return Ok(projectDtos);
         }
 
         [HttpGet("{id}")]
