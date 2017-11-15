@@ -1,10 +1,8 @@
-﻿using System;
-using Domain;
-using Xunit;
+﻿using Xunit;
 using Moq;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ZenScrum.Services;
+using ZenScrum.Utilities;
 using ZenScrumWebApi.Controllers;
 using ZenScrumWebApi.Dto;
 
@@ -17,8 +15,7 @@ namespace ZenScrumWebApiTests
         {
             // Arrange
             var mockZenScrumService = new Mock<IZenScrumService>();
-            mockZenScrumService.Setup(m => m.GetProjects())
-                .Returns(new Project[] {new Project(), new Project(), new Project()});
+            mockZenScrumService.Setup(m => m.GetProjects()).Returns(MockUtils.GetMockProjects());
             var controller = new ProjectsController(mockZenScrumService.Object);
 
             // Act
@@ -30,5 +27,12 @@ namespace ZenScrumWebApiTests
             var arr = (ProjectDto[])okResult.Value;
             Assert.Equal(arr.Length, 3);
         }
+
+        [Fact]
+        public void Dump_Test()
+        {
+            Assert.Equal(3, 3);
+        }
+
     }
 }
