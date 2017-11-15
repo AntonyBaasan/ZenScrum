@@ -22,8 +22,8 @@ namespace ZenScrumWebApiTests
             var controller = new ProjectsController(mockZenScrumService.Object);
 
             // Act
-            IActionResult result = controller.Index();
-            var okResult = (OkObjectResult) result;
+            var result = controller.Index();
+            var okResult = (OkObjectResult) result.Result;
 
             // Assert
             Assert.Equal(okResult.StatusCode, 200);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ZenScrum.Services;
 using ZenScrumWebApi.Dto;
+using System.Threading.Tasks;
 
 namespace ZenScrumWebApi.Controllers
 {
@@ -16,7 +17,7 @@ namespace ZenScrumWebApi.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var projects = _zenScrumService.GetProjects();
 
@@ -29,7 +30,7 @@ namespace ZenScrumWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
             return Ok(new object[]
             {
