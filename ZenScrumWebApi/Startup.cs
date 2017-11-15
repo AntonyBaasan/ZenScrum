@@ -39,6 +39,7 @@ namespace ZenScrumWebApi
             }
 
             app.UseMvc();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
         }
     }
