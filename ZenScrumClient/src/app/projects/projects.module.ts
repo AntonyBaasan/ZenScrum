@@ -9,6 +9,7 @@ import { IterationListComponent } from './iteration-list/iteration-list.componen
 import { ProjectBodyComponent } from './project-body/project-body.component';
 import { WorkitemBoardComponent } from './workitem-board/workitem-board.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ProjectsComponent } from './projects/projects.component';
     IterationListComponent,
     ProjectBodyComponent,
     WorkitemBoardComponent,
-    ProjectsComponent]
+    ProjectsComponent,
+    ProjectListComponent]
 })
 export class ProjectsModule { }

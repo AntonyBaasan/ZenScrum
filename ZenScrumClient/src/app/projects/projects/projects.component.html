@@ -1,5 +1,8 @@
 <p>
   projects works!
 </p>
+<div *ngFor="let p of projects">
+  <div>{{p.Name}}||{{p.Details}}</div>
+</div>
 <app-project-header></app-project-header>
 <app-project-body></app-project-body>
