@@ -32,9 +32,13 @@ namespace ZenScrumWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Index(int id)
         {
-            return Ok(new object[]
+            var project = _zenScrumService.GetProjectById(id);
+            return Ok(new ProjectDto
             {
-                new {id = 1, name = "Antony", age = "33"}
+                Id = project.Id,
+                Name = project.Name,
+                Details = project.Details,
+                Moniker = project.Moniker
             });
         }
     }

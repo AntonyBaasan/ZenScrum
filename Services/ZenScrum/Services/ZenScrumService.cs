@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain;
 using ZenScrum.Utilities;
 
@@ -17,13 +18,12 @@ namespace ZenScrum.Services
 
         public Project GetProjectByMoniker(string moniker)
         {
-            throw new NotImplementedException();
+            return MockUtils.GetMockProjects().Single(p => p.Moniker == moniker);
         }
 
         public Project GetProjectById(int id)
         {
-            return null;
+            return MockUtils.GetMockProjects().Single(p => p.Id == id);
         }
-
     }
 }
