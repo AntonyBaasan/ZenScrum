@@ -1,3 +1,22 @@
+<div *ngIf="post$ | async as p">
+  <h2>{{p.text}}</h2>
+  <h4>{{p.likes}}</h4>
+
+  <button (click)="upVote()">Up Vote</button>
+  <button (click)="downVote()">Down Vote</button>
+  <button (click)="reset()">Reset</button>
+
+  <input [(ngModel)]="text">
+  <button (click)="editText()">Change Title</button>
+</div>
+
+<hr/>
+
+{{ message$ | async}}
+<button (click)="switchToSpanish()">Spanish</button>
+<button (click)="switchToFrench()">French</button>
+
+<hr/>
 <!--The content below is only a placeholder and can be replaced.-->
 <nav>
   <a routerLink="/home" routerLinkActive="active">Home</a>

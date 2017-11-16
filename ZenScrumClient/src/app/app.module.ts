@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { StoreModule } from '@ngrx/store';
+import { simpleReducer } from './reducers/simple.reducer';
+import { postReducer } from './reducers/post.reducer';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -14,7 +19,12 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
   ],
   imports: [
+    StoreModule.forRoot({
+      message: simpleReducer,
+      post: postReducer
+    }),
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     ProjectsModule,
     HomeModule,
