@@ -1,8 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ZenScrum.Services;
 using ZenScrumWebApi.Dto;
 using System.Threading.Tasks;
+using AutoMapper;
+using Domain;
 
 namespace ZenScrumWebApi.Controllers
 {
@@ -10,10 +15,13 @@ namespace ZenScrumWebApi.Controllers
     public class ProjectsController : Controller
     {
         private readonly IZenScrumService _zenScrumService;
+        private readonly IMapper _mapper;
 
-        public ProjectsController(IZenScrumService zenScrumService)
+        public ProjectsController(IZenScrumService zenScrumService,
+            IMapper mapper)
         {
             _zenScrumService = zenScrumService;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
@@ -21,10 +29,7 @@ namespace ZenScrumWebApi.Controllers
         {
             var projects = _zenScrumService.GetProjects();
 
-            var projectDtos = projects.Select(p =>
-            {
-                return new ProjectDto {Id = p.Id, Name = p.Name, Details = p.Details, Moniker = p.Moniker};
-            }).ToArray();
+            var projectDtos = _mapper.Map<ProjectDto[]>(projects);
 
             return Ok(projectDtos);
         }
@@ -33,13 +38,7 @@ namespace ZenScrumWebApi.Controllers
         public async Task<IActionResult> Index(int id)
         {
             var project = _zenScrumService.GetProjectById(id);
-            return Ok(new ProjectDto
-            {
-                Id = project.Id,
-                Name = project.Name,
-                Details = project.Details,
-                Moniker = project.Moniker
-            });
+            return Ok(_mapper.Map<ProjectDto>(project));
         }
     }
 }

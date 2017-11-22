@@ -1,30 +1,62 @@
-﻿using Xunit;
+﻿using AutoMapper;
+using Domain;
+using Xunit;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 using ZenScrum.Services;
 using ZenScrum.Utilities;
 using ZenScrumWebApi.Controllers;
 using ZenScrumWebApi.Dto;
+using ZenScrumWebApi.MapperConfig;
 
 namespace ZenScrumWebApiTests
 {
     public class ProjectControllerTests
     {
+        private IMapper mapper;
+        private Mock<IZenScrumService> mockZenScrumService;
+        
+        public ProjectControllerTests()
+        {
+            mapper = CreateMapper();
+            mockZenScrumService = new Mock<IZenScrumService>();
+        }
+
+        private IMapper CreateMapper()
+        {
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile<ProjectMapperProfile>(); });
+            return new Mapper(config);
+        }
+
+        [Fact]
+        public void Index_GetProjectById()
+        {
+            // Arrange
+            mockZenScrumService.Setup(m => m.GetProjectById(2)).Returns(new Project {Id = 2});
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+
+            // Act
+            var result = controller.Index(2);
+            var okResult = (OkObjectResult) result.Result;
+
+            // Assert
+            var p = (ProjectDto) okResult.Value;
+            Assert.Equal(p.Id, 2);
+        }
+
         [Fact]
         public void Index_ReturnsProjectModels()
         {
             // Arrange
-            var mockZenScrumService = new Mock<IZenScrumService>();
             mockZenScrumService.Setup(m => m.GetProjects()).Returns(MockUtils.GetMockProjects());
-            var controller = new ProjectsController(mockZenScrumService.Object);
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
 
             // Act
             var result = controller.Index();
             var okResult = (OkObjectResult) result.Result;
 
             // Assert
-            Assert.Equal(okResult.StatusCode, 200);
-            var arr = (ProjectDto[])okResult.Value;
+            var arr = (ProjectDto[]) okResult.Value;
             Assert.Equal(arr.Length, 3);
         }
 
@@ -33,6 +65,5 @@ namespace ZenScrumWebApiTests
         {
             Assert.Equal(3, 3);
         }
-
     }
 }
