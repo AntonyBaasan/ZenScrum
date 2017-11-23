@@ -29,6 +29,22 @@ namespace ZenScrumWebApiTests
         }
 
         [Fact]
+        public void AutoMapper_Creates_Url()
+        {
+            // Arrange
+            mockZenScrumService.Setup(m => m.GetProjectById(2)).Returns(new Project {Id = 2});
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+
+            // Act
+            var result = controller.Index(2);
+            var okResult = (OkObjectResult) result.Result;
+
+            // Assert
+            var p = (ProjectDto) okResult.Value;
+            Assert.Equal(p.Id, 2);
+        }
+        
+        [Fact]
         public void Index_GetProjectById()
         {
             // Arrange

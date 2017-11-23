@@ -12,13 +12,12 @@ using Domain;
 namespace ZenScrumWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ProjectsController : Controller
+    public class ProjectsController : BaseController
     {
         private readonly IZenScrumService _zenScrumService;
         private readonly IMapper _mapper;
 
-        public ProjectsController(IZenScrumService zenScrumService,
-            IMapper mapper)
+        public ProjectsController(IZenScrumService zenScrumService, IMapper mapper)
         {
             _zenScrumService = zenScrumService;
             _mapper = mapper;
@@ -34,7 +33,7 @@ namespace ZenScrumWebApi.Controllers
             return Ok(projectDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "ProjectGet")]
         public async Task<IActionResult> Index(int id)
         {
             var project = _zenScrumService.GetProjectById(id);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain;
+using Microsoft.AspNetCore.Mvc.Routing;
 using ZenScrumWebApi.Dto;
 
 namespace ZenScrumWebApi.MapperConfig
@@ -9,6 +10,7 @@ namespace ZenScrumWebApi.MapperConfig
         public ProjectMapperProfile()
         {
             CreateMap<Project, ProjectDto>()
+                .ForMember(c=> c.Url, opt=> opt.ResolveUsing<ProjectUrlResolver>())
                 .ReverseMap();
         }
     }
