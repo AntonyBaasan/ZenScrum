@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace ZenScrum.Services
+namespace ZenScrumCore.Services
 {
     public interface IZenScrumService
     {

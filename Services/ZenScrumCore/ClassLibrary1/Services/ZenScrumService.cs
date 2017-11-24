@@ -4,7 +4,7 @@ using Domain;
 using ZenScrum.Utilities;
 using DataRepository;
 
-namespace ZenScrum.Services
+namespace ZenScrumCore.Services
 {
     public class ZenScrumService : IZenScrumService
     {
@@ -17,6 +17,8 @@ namespace ZenScrum.Services
 
         public Project[] GetProjects()
         {
+            //var projects = _repository.GetObjects<Project>();
+
             return MockUtils.GetMockProjects();
         }
 

@@ -3,11 +3,11 @@ using Domain;
 using Xunit;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
-using ZenScrum.Services;
 using ZenScrum.Utilities;
 using ZenScrumWebApi.Controllers;
 using ZenScrumWebApi.Dto;
 using ZenScrumWebApi.MapperConfig;
+using ZenScrumCore.Services;
 
 namespace ZenScrumWebApiTests
 {
