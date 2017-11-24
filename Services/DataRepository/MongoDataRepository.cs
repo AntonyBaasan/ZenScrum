@@ -5,15 +5,13 @@ namespace DataRepository
 {
     public class MongoDataRepository : IDataRepository
     {
-        private string _mongoDbName;
         private IMongoClient _client;
         private IMongoDatabase _database;
 
-        public MongoDataRepository(IMongoClient mongoClient, string databaseName = "ZenScrumDB")
+        public MongoDataRepository(DatabaseConfiguration dbConfig)
         {
-            _client = mongoClient;
-            _mongoDbName = databaseName;
-            _database = _client.GetDatabase(_mongoDbName);
+            _client = new MongoClient(dbConfig.ConnectionString);
+            _database = _client.GetDatabase(dbConfig.DatabaseName);
         }
 
         public void Create<T>(T obj)

@@ -19,7 +19,7 @@ namespace ZenScrumWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            StartupDependencyInjection.ConfigureServices(services);
+            StartupDependencyInjection.ConfigureServices(services, Configuration);
 
             // Add automapper
             services.AddAutoMapper();
@@ -30,8 +30,6 @@ namespace ZenScrumWebApi
                     // ignores (removes) loop if finds
                     opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,19 +4,25 @@ using ZenScrumCore.Services;
 using MongoDB.Driver;
 using DataRepository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace ZenScrumWebApi
 {
     public class StartupDependencyInjection
     {
-        public static void ConfigureServices(IServiceCollection services)
+        internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IZenScrumService, ZenScrumService>();
 
             services.AddSingleton<IUserManagerService, UserManagerService>();
 
             // MongoDB settings
-            services.AddSingleton<IMongoClient, MongoClient>(client => new MongoClient("mongodb://192.168.99.100:32798/?3t.connectTimeout=10000&3t.uriVersion=2&3t.connectionMode=direct&3t.connection.name=MongoDB-Docker&readPreference=primary&3t.socketTimeout=0"));
+            services.AddSingleton<DatabaseConfiguration>(conf => new DatabaseConfiguration {
+                ConnectionString = configuration["database:connectionString"],
+                DatabaseName = configuration["database:databaseName"]
+
+            });
             services.AddSingleton<IDataRepository, MongoDataRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
