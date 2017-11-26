@@ -6,6 +6,7 @@ namespace ZenScrumWebApi.Controllers
     public abstract class BaseController: Controller
     {
         public const string UrlHelperStr = "URLHELPER";
+        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
