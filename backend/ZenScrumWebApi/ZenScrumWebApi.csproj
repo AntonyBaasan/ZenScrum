@@ -14,6 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Services\UserManager\UserManager.csproj" />
-    <ProjectReference Include="..\Services\ZenScrumCore\ClassLibrary1\ZenScrumCore.csproj" />
+    <ProjectReference Include="..\Services\ZenScrumCore\ZenScrumCore.csproj" />
   </ItemGroup>
 </Project>
