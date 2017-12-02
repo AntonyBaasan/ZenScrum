@@ -10,17 +10,25 @@
   <button (click)="editText()">Change Title</button>
 </div>
 
-<hr/>
-
-{{ message$ | async}}
+<hr/> {{ message$ | async}}
 <button (click)="switchToSpanish()">Spanish</button>
 <button (click)="switchToFrench()">French</button>
 
 <hr/>
 <!--The content below is only a placeholder and can be replaced.-->
-<nav>
-  <a routerLink="/home" routerLinkActive="active">Home</a>
-  <a routerLink="/projects" routerLinkActive="active">Projects</a>
-</nav>
+<mat-toolbar>
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button [matMenuTriggerFor]="project">Projects</button>
+
+  <mat-menu #project="matMenu" yPosition="below">
+    <div *ngFor="let project of projects">
+      <button mat-menu-item routerLink={{getProjectLink(project)}} routerLinkActive="active">
+        {{project.Name}}
+      </button>
+    </div>
+
+    <button mat-menu-item>Create Project</button>
+  </mat-menu>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

@@ -14,6 +14,14 @@ import { ProjectsModule } from './projects/projects.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 
+// material modules
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { Project } from './shared/models/project';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +36,15 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     ProjectsModule,
     HomeModule,
-    SharedModule
+    SharedModule,
+
+    NoopAnimationsModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
