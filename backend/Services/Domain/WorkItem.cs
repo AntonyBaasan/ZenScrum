@@ -12,5 +12,6 @@ namespace Domain
         public List<Activity> History { get; set; }
         public List<string> Labels { get; set; }
         public List<Comment> Comments { get; set; }
+        public Iteration iteration { get; set; }
     }
 }
