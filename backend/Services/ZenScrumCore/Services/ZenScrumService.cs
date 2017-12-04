@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Domain;
-using ZenScrum.Utilities;
 using DataRepository;
 
 namespace ZenScrumCore.Services
@@ -17,34 +15,32 @@ namespace ZenScrumCore.Services
 
         public Project[] GetProjects()
         {
-            //var projects = _repository.GetObjects<Project>();
-
-            return MockUtils.GetMockProjects();
+            return _repository.GetObjects<Project>().ToArray();
         }
 
         public Project GetProjectByMoniker(string moniker)
         {
-            return MockUtils.GetMockProjects().Single(p => p.Moniker == moniker);
+            return _repository.GetObjects<Project>().Single(p => p.Moniker == moniker);
         }
 
         public Project GetProjectById(int id)
         {
-            return MockUtils.GetMockProjects().Single(p => p.Id == id);
+            return _repository.GetObjectById<Project>(id);
         }
 
         public void CreateProject(Project project)
         {
-            throw new NotImplementedException();
+            _repository.Create(project);
         }
 
         public void UpdateProject(int id, Project project)
         {
-            throw new NotImplementedException();
+            _repository.Update(id, project);
         }
 
         public void DeleteProject(int id)
         {
-            throw new NotImplementedException();
+            _repository.Delete<Project>(id);
         }
     }
 }

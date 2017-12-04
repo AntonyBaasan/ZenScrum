@@ -15,6 +15,5 @@ namespace ZenScrumCore.Services
         void UpdateProject(int id, Project project);
 
         void DeleteProject(int id);
-
     }
 }
