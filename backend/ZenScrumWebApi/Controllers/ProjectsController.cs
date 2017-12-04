@@ -19,7 +19,7 @@ namespace ZenScrumWebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("")]
+        [HttpGet()]
         public async Task<IActionResult> Index()
         {
             var projects = _zenScrumService.GetProjects();
@@ -36,7 +36,7 @@ namespace ZenScrumWebApi.Controllers
             return Ok(_mapper.Map<ProjectDto>(project));
         }
 
-        [HttpPost("")]
+        [HttpPost()]
         public async Task<IActionResult> Create([FromBody]ProjectDto projectDto)
         {
             var project = _mapper.Map<Project>(projectDto);
@@ -44,5 +44,14 @@ namespace ZenScrumWebApi.Controllers
 
             return Ok(_mapper.Map<ProjectDto>(project));
         }
+
+        [HttpDelete()]
+        public async Task<IActionResult> Delete(string id)
+        {
+            _zenScrumService.DeleteProject(id);
+
+            return Ok(new { Message = "Project was successfully removed!" });
+        }
+
     }
 }

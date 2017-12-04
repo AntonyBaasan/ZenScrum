@@ -30,26 +30,10 @@ namespace ZenScrumWebApiTests
         }
 
         [Fact]
-        public void AutoMapper_Creates_Url()
-        {
-            // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById("2")).Returns(new Project {Id = new ObjectId("2")});
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
-
-            // Act
-            var result = controller.Index("2");
-            var okResult = (OkObjectResult) result.Result;
-
-            // Assert
-            var p = (ProjectDto) okResult.Value;
-            Assert.Equal(p.Id.ToString(), "2");
-        }
-        
-        [Fact]
         public void Index_GetProjectById()
         {
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById("2")).Returns(new Project {Id = new ObjectId("2")});
+            mockZenScrumService.Setup(m => m.GetProjectById("2")).Returns(new Project {Id = ObjectId.Parse("2")});
             var controller = new ProjectsController(mockZenScrumService.Object, mapper);
 
             // Act
@@ -75,6 +59,21 @@ namespace ZenScrumWebApiTests
             // Assert
             var arr = (ProjectDto[]) okResult.Value;
             Assert.Equal(arr.Length, 3);
+        }
+
+        [Fact]
+        public void ProjectController_DeletesProject_ById()
+        {
+            // Arrange
+            mockZenScrumService.Setup(m => m.DeleteProject("1"));
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+
+            // Act
+            var result = controller.Delete("1");
+            var okResult = (OkObjectResult) result.Result;
+
+            // Assert
+            mockZenScrumService.Verify(s=>s.DeleteProject("1"), Times.Once);
         }
 
         [Fact]
