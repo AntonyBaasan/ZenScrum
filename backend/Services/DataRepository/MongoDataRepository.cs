@@ -1,5 +1,6 @@
 ﻿using System;
 using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace DataRepository
 {
@@ -14,30 +15,52 @@ namespace DataRepository
             _database = _client.GetDatabase(dbConfig.DatabaseName);
         }
 
+        private IMongoCollection<T> GetCollection<T>()
+        {
+            return _database.GetCollection<T>(typeof(T).Name);
+        }
+
         public void Create<T>(T obj)
         {
-            throw new NotImplementedException();
+            var collenction = GetCollection<T>();
+            collenction.InsertOne(obj);
         }
 
         public void Delete<T>(int id)
         {
-            throw new NotImplementedException();
+            var collenction = GetCollection<T>();
+            var filter = Builders<T>.Filter.Eq("Id", id);
+            collenction.DeleteOne(filter);
         }
 
         public T GetObjectById<T>(int id)
         {
-            throw new NotImplementedException();
+            var collenction = GetCollection<T>();
+            var filter = Builders<T>.Filter.Eq("Id", id);
+            return collenction.Find(filter).FirstOrDefault();
         }
 
-        public T[] GetObjects<T>()
+        public List<T> GetObjects<T>()
         {
-            var collenction = _database.GetCollection<T>(typeof(T).Name);
-            return collenction.Find(_ => true).ToList<T>().ToArray();
+            var collenction = GetCollection<T>();
+            return collenction.Find(Builders<T>.Filter.Empty).ToList();
         }
 
-        public T[] GetObjects<T>(Filter[] filters)
+        public List<T> GetObjects<T>(Filter[] filters)
         {
-            throw new NotImplementedException();
+            var collenction = GetCollection<T>();
+
+            var filterBuilder = Builders<T>.Filter;
+            FilterDefinition<T> filter = null;
+            foreach (var f in filters)
+                filter &= Builders<T>.Filter.Eq(f.Field, f.Value);
+
+
+            if (filter == null)
+                filter = Builders<T>.Filter.Empty;
+
+            return collenction.Find(filter).ToList();
+
         }
 
         public void Update<T>(int id, T obj)

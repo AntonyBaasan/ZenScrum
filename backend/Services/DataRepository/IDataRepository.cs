@@ -1,16 +1,20 @@
-﻿namespace DataRepository
+﻿using System.Collections.Generic;
+
+namespace DataRepository
 {
     public class Filter
     {
-        string Field { get; set; }
-        string Value { get; set; }
+        public string Field { get; set; }
+        public string Value { get; set; }
+        // TODO: not supported yet
+        public string Comparator { get; set; } // "=", ">", "<"
     }
 
     public interface IDataRepository
     {
-        T[] GetObjects<T>();
+        List<T> GetObjects<T>();
 
-        T[] GetObjects<T>(Filter[] filters);
+        List<T> GetObjects<T>(Filter[] filters);
 
         T GetObjectById<T>(int id);
 
