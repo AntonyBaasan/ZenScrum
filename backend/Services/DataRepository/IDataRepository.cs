@@ -16,12 +16,12 @@ namespace DataRepository
 
         List<T> GetObjects<T>(Filter[] filters);
 
-        T GetObjectById<T>(int id);
+        T GetObjectById<T>(string id);
 
         void Create<T>(T obj);
 
-        void Update<T>(int id, T obj);
+        void Update<T>(string id, T obj);
 
-        void Delete<T>(int id);
+        void Delete<T>(string id);
     }
 }

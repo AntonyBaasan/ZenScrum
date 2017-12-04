@@ -23,7 +23,7 @@ namespace ZenScrumCore.Services
             return _repository.GetObjects<Project>().Single(p => p.Moniker == moniker);
         }
 
-        public Project GetProjectById(int id)
+        public Project GetProjectById(string id)
         {
             return _repository.GetObjectById<Project>(id);
         }
@@ -33,12 +33,12 @@ namespace ZenScrumCore.Services
             _repository.Create(project);
         }
 
-        public void UpdateProject(int id, Project project)
+        public void UpdateProject(string id, Project project)
         {
             _repository.Update(id, project);
         }
 
-        public void DeleteProject(int id)
+        public void DeleteProject(string id)
         {
             _repository.Delete<Project>(id);
         }

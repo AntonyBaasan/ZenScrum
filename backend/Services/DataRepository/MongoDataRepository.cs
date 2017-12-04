@@ -26,14 +26,14 @@ namespace DataRepository
             collenction.InsertOne(obj);
         }
 
-        public void Delete<T>(int id)
+        public void Delete<T>(string id)
         {
             var collenction = GetCollection<T>();
             var filter = Builders<T>.Filter.Eq("Id", id);
             collenction.DeleteOne(filter);
         }
 
-        public T GetObjectById<T>(int id)
+        public T GetObjectById<T>(string id)
         {
             var collenction = GetCollection<T>();
             var filter = Builders<T>.Filter.Eq("Id", id);
@@ -63,7 +63,7 @@ namespace DataRepository
 
         }
 
-        public void Update<T>(int id, T obj)
+        public void Update<T>(string id, T obj)
         {
             throw new NotImplementedException();
         }

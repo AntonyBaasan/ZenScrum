@@ -8,12 +8,12 @@ namespace ZenScrumCore.Services
 
         Project GetProjectByMoniker(string moniker);
 
-        Project GetProjectById(int id);
+        Project GetProjectById(string id);
 
         void CreateProject(Project project);
 
-        void UpdateProject(int id, Project project);
+        void UpdateProject(string id, Project project);
 
-        void DeleteProject(int id);
+        void DeleteProject(string id);
     }
 }
