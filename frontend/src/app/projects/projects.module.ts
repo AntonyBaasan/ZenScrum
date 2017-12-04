@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectHeaderComponent } from './project-header/project-header.component';
@@ -11,10 +12,21 @@ import { WorkitemBoardComponent } from './workitem-board/workitem-board.componen
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 
+// material component
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   imports: [
     CommonModule,
-    ProjectsRoutingModule
+    FormsModule,
+    ProjectsRoutingModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatIconModule
   ],
   declarations: [ProjectHeaderComponent,
     WorkitemListComponent,

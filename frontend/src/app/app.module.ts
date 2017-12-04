@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ProjectsModule } from './projects/projects.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
+import { Project } from './shared/models/project';
 
 // material modules
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +21,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { Project } from './shared/models/project';
 
 @NgModule({
   declarations: [
@@ -47,4 +47,4 @@ import { Project } from './shared/models/project';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

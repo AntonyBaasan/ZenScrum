@@ -12,11 +12,23 @@ import { Project } from '../../shared/models/project';
 export class ProjectsComponent implements OnInit {
 
   public projects: Project[];
+  sidenavWidth = 4;
+  events = [];
+  public opened = true;
 
   constructor(public projectsService: ProjectsService) { }
 
   ngOnInit() {
     this.projects = this.projectsService.GetProjects();
+  }
+
+  increase() {
+    this.sidenavWidth = 15;
+    console.log('increase sidenav width');
+  }
+  decrease() {
+    this.sidenavWidth = 4;
+    console.log('decrease sidenav width');
   }
 
 }
