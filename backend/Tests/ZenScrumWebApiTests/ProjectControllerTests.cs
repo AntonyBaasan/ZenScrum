@@ -32,17 +32,18 @@ namespace ZenScrumWebApiTests
         [Fact]
         public void Index_GetProjectById()
         {
+            var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById("2")).Returns(new Project {Id = ObjectId.Parse("2")});
+            mockZenScrumService.Setup(m => m.GetProjectById(objectId)).Returns(new Project {Id = ObjectId.Parse(objectId)});
             var controller = new ProjectsController(mockZenScrumService.Object, mapper);
 
             // Act
-            var result = controller.Index("2");
+            var result = controller.Index(objectId);
             var okResult = (OkObjectResult) result.Result;
 
             // Assert
             var p = (ProjectDto) okResult.Value;
-            Assert.Equal(p.Id.ToString(), "2");
+            Assert.Equal(p.Id.ToString(), objectId);
         }
 
         [Fact]
