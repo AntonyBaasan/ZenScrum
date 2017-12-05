@@ -34,13 +34,13 @@ namespace ZenScrumWebApi.Controllers
         {
             var project = _zenScrumService.GetProjectById(id);
             if (project == null)
-                return NotFound();
-            
+                return NotFound(new {Message = $"Can't find project with {id}"});
+
             return Ok(_mapper.Map<ProjectDto>(project));
         }
 
         [HttpPost()]
-        public async Task<IActionResult> Create([FromBody]ProjectDto projectDto)
+        public async Task<IActionResult> Create([FromBody] ProjectDto projectDto)
         {
             var project = _mapper.Map<Project>(projectDto);
             _zenScrumService.CreateProject(project);
@@ -53,8 +53,22 @@ namespace ZenScrumWebApi.Controllers
         {
             _zenScrumService.DeleteProject(id);
 
-            return Ok(new { Message = "Project was successfully removed!" });
+            return Ok(new {Message = "Project was successfully removed!"});
         }
 
+        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update(string id, [FromBody] ProjectDto projectDto)
+        {
+            var oldProject = _zenScrumService.GetProjectById(id);
+            if (oldProject == null)
+                return NotFound(new {Message = $"Can't find project with {id}"});
+
+            var updatedProject = _mapper.Map(projectDto, oldProject);
+            
+            _zenScrumService.UpdateProject(id, updatedProject);
+
+            return Ok(_mapper.Map<ProjectDto>(updatedProject));
+        }
     }
 }

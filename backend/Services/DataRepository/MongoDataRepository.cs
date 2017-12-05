@@ -1,6 +1,7 @@
 ﻿using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace DataRepository
 {
@@ -29,14 +30,14 @@ namespace DataRepository
         public void Delete<T>(string id)
         {
             var collenction = GetCollection<T>();
-            var filter = Builders<T>.Filter.Eq("Id", id);
+            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
             collenction.DeleteOne(filter);
         }
 
         public T GetObjectById<T>(string id)
         {
             var collenction = GetCollection<T>();
-            var filter = Builders<T>.Filter.Eq("Id", id);
+            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
             return collenction.Find(filter).FirstOrDefault();
         }
 
@@ -65,7 +66,8 @@ namespace DataRepository
 
         public void Update<T>(string id, T obj)
         {
-            throw new NotImplementedException();
+            var collenction = GetCollection<T>();
+            collenction.ReplaceOne(Builders<T>.Filter.Eq("_id", ObjectId.Parse(id)), obj, new UpdateOptions() { IsUpsert = true });
         }
     }
 }

@@ -36,15 +36,15 @@ namespace ZenScrumWebApiTests
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
             mockZenScrumService.Setup(m => m.GetProjectById(objectId))
-                .Returns(new Project {Id = ObjectId.Parse(objectId)});
+                .Returns(new Project { Id = ObjectId.Parse(objectId) });
             var controller = new ProjectsController(mockZenScrumService.Object, mapper);
 
             // Act
             var result = controller.Index(objectId);
-            var okResult = (OkObjectResult) result.Result;
+            var okResult = (OkObjectResult)result.Result;
 
             // Assert
-            var p = (ProjectDto) okResult.Value;
+            var p = (ProjectDto)okResult.Value;
             Assert.Equal(p.Id.ToString(), objectId);
         }
 
@@ -61,7 +61,7 @@ namespace ZenScrumWebApiTests
 
 
             // Assert
-            Assert.IsType(typeof(NotFoundResult), result.Result);
+            Assert.IsType(typeof(NotFoundObjectResult), result.Result);
         }
 
         [Fact]
@@ -73,10 +73,10 @@ namespace ZenScrumWebApiTests
 
             // Act
             var result = controller.Index();
-            var okResult = (OkObjectResult) result.Result;
+            var okResult = (OkObjectResult)result.Result;
 
             // Assert
-            var arr = (ProjectDto[]) okResult.Value;
+            var arr = (ProjectDto[])okResult.Value;
             Assert.Equal(arr.Length, 3);
         }
 
@@ -89,10 +89,30 @@ namespace ZenScrumWebApiTests
 
             // Act
             var result = controller.Delete("1");
-            var okResult = (OkObjectResult) result.Result;
+            var okResult = (OkObjectResult)result.Result;
 
             // Assert
             mockZenScrumService.Verify(s => s.DeleteProject("1"), Times.Once);
+        }
+
+        [Fact]
+        public void Update_ShouldCallService()
+        {
+            var Id = ObjectId.GenerateNewId();
+            var oldProject = new Project { Id = Id, Name = "Name1" };
+            var newProjectDto = new ProjectDto { Id = Id.ToString(), Name = "Name2" };
+            // Arrange
+            mockZenScrumService.Setup(m => m.GetProjectById(Id.ToString())).Returns(oldProject);
+            mockZenScrumService.Setup(m => m.UpdateProject(Id.ToString(), It.IsAny<Project>()));
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+
+            // Act
+            var result = controller.Update(Id.ToString(), newProjectDto);
+            var okResult = (OkObjectResult)result.Result;
+
+            // Assert
+            var p = (ProjectDto)okResult.Value;
+            Assert.Equal(p.Id.ToString(), Id.ToString());
         }
     }
 }

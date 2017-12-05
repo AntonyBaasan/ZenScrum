@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Domain;
 using DataRepository;
+using MongoDB.Bson;
 
 namespace ZenScrumCore.Services
 {
@@ -36,6 +37,7 @@ namespace ZenScrumCore.Services
         public void UpdateProject(string id, Project project)
         {
             _repository.Update(id, project);
+            project.Id = ObjectId.Parse(id);
         }
 
         public void DeleteProject(string id)
