@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Domain;
 using Xunit;
 using Moq;
@@ -16,7 +17,7 @@ namespace ZenScrumWebApiTests
     {
         private IMapper mapper;
         private Mock<IZenScrumService> mockZenScrumService;
-        
+
         public ProjectControllerTests()
         {
             mapper = CreateMapper();
@@ -30,11 +31,12 @@ namespace ZenScrumWebApiTests
         }
 
         [Fact]
-        public void Index_GetProjectById()
+        public void Index_GetProjectById_Sucess()
         {
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById(objectId)).Returns(new Project {Id = ObjectId.Parse(objectId)});
+            mockZenScrumService.Setup(m => m.GetProjectById(objectId))
+                .Returns(new Project {Id = ObjectId.Parse(objectId)});
             var controller = new ProjectsController(mockZenScrumService.Object, mapper);
 
             // Act
@@ -47,7 +49,23 @@ namespace ZenScrumWebApiTests
         }
 
         [Fact]
-        public void Index_ReturnsProjectModels()
+        public void Index_GetProjectByWrongId_NotFoundResult()
+        {
+            var objectId = ObjectId.GenerateNewId().ToString();
+            // Arrange
+            mockZenScrumService.Setup(m => m.GetProjectById(objectId)).Returns<Project>(null);
+            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+
+            // Act
+            var result = controller.Index(objectId);
+
+
+            // Assert
+            Assert.IsType(typeof(NotFoundResult), result.Result);
+        }
+
+        [Fact]
+        public void Index_NoParam_ReturnsAllProjecs()
         {
             // Arrange
             mockZenScrumService.Setup(m => m.GetProjects()).Returns(MockUtils.GetMockProjects());
@@ -63,7 +81,7 @@ namespace ZenScrumWebApiTests
         }
 
         [Fact]
-        public void ProjectController_DeletesProject_ById()
+        public void Delete_ById_ShouldCallService()
         {
             // Arrange
             mockZenScrumService.Setup(m => m.DeleteProject("1"));
@@ -74,13 +92,7 @@ namespace ZenScrumWebApiTests
             var okResult = (OkObjectResult) result.Result;
 
             // Assert
-            mockZenScrumService.Verify(s=>s.DeleteProject("1"), Times.Once);
-        }
-
-        [Fact]
-        public void Dump_Test()
-        {
-            Assert.Equal(3, 3);
+            mockZenScrumService.Verify(s => s.DeleteProject("1"), Times.Once);
         }
     }
 }

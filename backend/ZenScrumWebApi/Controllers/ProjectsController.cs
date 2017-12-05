@@ -33,6 +33,9 @@ namespace ZenScrumWebApi.Controllers
         public async Task<IActionResult> Index(string id)
         {
             var project = _zenScrumService.GetProjectById(id);
+            if (project == null)
+                return NotFound();
+            
             return Ok(_mapper.Map<ProjectDto>(project));
         }
 
