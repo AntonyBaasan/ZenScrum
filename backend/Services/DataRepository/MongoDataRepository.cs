@@ -61,13 +61,17 @@ namespace DataRepository
                 filter = Builders<T>.Filter.Empty;
 
             return collenction.Find(filter).ToList();
-
         }
 
         public void Update<T>(string id, T obj)
         {
             var collenction = GetCollection<T>();
             collenction.ReplaceOne(Builders<T>.Filter.Eq("_id", ObjectId.Parse(id)), obj, new UpdateOptions() { IsUpsert = true });
+        }
+
+        public void UpdateProperty<T>(string id, string propertyName, object value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

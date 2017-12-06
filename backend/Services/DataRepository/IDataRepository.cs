@@ -22,6 +22,8 @@ namespace DataRepository
 
         void Update<T>(string id, T obj);
 
+        void UpdateProperty<T>(string id, string propertyName, object value);
+
         void Delete<T>(string id);
     }
 }

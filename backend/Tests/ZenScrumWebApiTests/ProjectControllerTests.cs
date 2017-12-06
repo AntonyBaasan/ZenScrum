@@ -45,7 +45,7 @@ namespace ZenScrumWebApiTests
 
             // Assert
             var p = (ProjectDto)okResult.Value;
-            Assert.Equal(p.Id.ToString(), objectId);
+            Assert.Equal(objectId, p.Id.ToString());
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace ZenScrumWebApiTests
 
             // Assert
             var arr = (ProjectDto[])okResult.Value;
-            Assert.Equal(arr.Length, 3);
+            Assert.Equal(3, arr.Length);
         }
 
         [Fact]
@@ -112,7 +112,8 @@ namespace ZenScrumWebApiTests
 
             // Assert
             var p = (ProjectDto)okResult.Value;
-            Assert.Equal(p.Id.ToString(), Id.ToString());
+            Assert.Equal(Id.ToString(), p.Id.ToString());
         }
+
     }
 }

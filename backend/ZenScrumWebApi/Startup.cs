@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.Net;
+using ZenScrumWebApi.Middlewares;
 
 namespace ZenScrumWebApi
 {
@@ -40,6 +42,7 @@ namespace ZenScrumWebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
