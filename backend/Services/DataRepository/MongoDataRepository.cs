@@ -5,7 +5,7 @@ using MongoDB.Bson;
 
 namespace DataRepository
 {
-    public class MongoDataRepository : IDataRepository
+    public class MongoDataRepository<T> : IDataRepository<T>
     {
         private IMongoClient _client;
         private IMongoDatabase _database;
@@ -16,40 +16,40 @@ namespace DataRepository
             _database = _client.GetDatabase(dbConfig.DatabaseName);
         }
 
-        private IMongoCollection<T> GetCollection<T>()
+        private IMongoCollection<T> GetCollection()
         {
             return _database.GetCollection<T>(typeof(T).Name);
         }
 
-        public void Create<T>(T obj)
+        public void Create(T obj)
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
             collenction.InsertOne(obj);
         }
 
-        public void Delete<T>(string id)
+        public void Delete(string id)
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
             var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
             collenction.DeleteOne(filter);
         }
 
-        public T GetObjectById<T>(string id)
+        public T GetObjectById(string id)
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
             var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
             return collenction.Find(filter).FirstOrDefault();
         }
 
-        public List<T> GetObjects<T>()
+        public List<T> GetObjects()
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
             return collenction.Find(Builders<T>.Filter.Empty).ToList();
         }
 
-        public List<T> GetObjects<T>(Filter[] filters)
+        public List<T> GetObjects(Filter[] filters)
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
 
             var filterBuilder = Builders<T>.Filter;
             FilterDefinition<T> filter = null;
@@ -63,13 +63,13 @@ namespace DataRepository
             return collenction.Find(filter).ToList();
         }
 
-        public void Update<T>(string id, T obj)
+        public void Update(string id, T obj)
         {
-            var collenction = GetCollection<T>();
+            var collenction = GetCollection();
             collenction.ReplaceOne(Builders<T>.Filter.Eq("_id", ObjectId.Parse(id)), obj, new UpdateOptions() { IsUpsert = true });
         }
 
-        public void UpdateProperty<T>(string id, string propertyName, object value)
+        public void UpdateProperty(string id, string propertyName, object value)
         {
             throw new NotImplementedException();
         }

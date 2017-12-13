@@ -10,20 +10,20 @@ namespace DataRepository
         public string Comparator { get; set; } // "=", ">", "<"
     }
 
-    public interface IDataRepository
+    public interface IDataRepository<T>
     {
-        List<T> GetObjects<T>();
+        List<T> GetObjects();
 
-        List<T> GetObjects<T>(Filter[] filters);
+        List<T> GetObjects(Filter[] filters);
 
-        T GetObjectById<T>(string id);
+        T GetObjectById(string id);
 
-        void Create<T>(T obj);
+        void Create(T obj);
 
-        void Update<T>(string id, T obj);
+        void Update(string id, T obj);
 
-        void UpdateProperty<T>(string id, string propertyName, object value);
+        void UpdateProperty(string id, string propertyName, object value);
 
-        void Delete<T>(string id);
+        void Delete(string id);
     }
 }

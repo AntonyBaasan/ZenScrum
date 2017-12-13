@@ -10,18 +10,21 @@ using ZenScrumWebApi.Dto;
 using ZenScrumWebApi.MapperConfig;
 using ZenScrumCore.Services;
 using MongoDB.Bson;
+using DataRepository;
 
 namespace ZenScrumWebApiTests
 {
     public class ProjectControllerTests
     {
         private IMapper mapper;
-        private Mock<IZenScrumService> mockZenScrumService;
+        private IZenScrumService fakeZenScrumService;
+        private Mock<IDataRepository<Project>> mockProjectRepository;
 
         public ProjectControllerTests()
         {
             mapper = CreateMapper();
-            mockZenScrumService = new Mock<IZenScrumService>();
+            mockProjectRepository = new Mock<IDataRepository<Project>>();
+
         }
 
         private IMapper CreateMapper()
@@ -35,9 +38,9 @@ namespace ZenScrumWebApiTests
         {
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById(objectId))
-                .Returns(new Project { Id = ObjectId.Parse(objectId) });
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+            mockProjectRepository.Setup(m => m.GetObjectById(objectId)).Returns(new Project { Id = ObjectId.Parse(objectId) });
+            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
             var result = controller.Index(objectId);
@@ -53,8 +56,9 @@ namespace ZenScrumWebApiTests
         {
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById(objectId)).Returns<Project>(null);
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+            mockProjectRepository.Setup(m => m.GetObjectById(objectId)).Returns<Project>(null);
+            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
             var result = controller.Index(objectId);
@@ -68,8 +72,9 @@ namespace ZenScrumWebApiTests
         public void Index_NoParam_ReturnsAllProjecs()
         {
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjects()).Returns(MockUtils.GetMockProjects());
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+            mockProjectRepository.Setup(m => m.GetObjects()).Returns(MockUtils.GetMockProjects());
+            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
             var result = controller.Index();
@@ -84,15 +89,16 @@ namespace ZenScrumWebApiTests
         public void Delete_ById_ShouldCallService()
         {
             // Arrange
-            mockZenScrumService.Setup(m => m.DeleteProject("1"));
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+            mockProjectRepository.Setup(m => m.Delete("1"));
+            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
             var result = controller.Delete("1");
             var okResult = (OkObjectResult)result.Result;
 
             // Assert
-            mockZenScrumService.Verify(s => s.DeleteProject("1"), Times.Once);
+            mockProjectRepository.Verify(s => s.Delete("1"), Times.Once);
         }
 
         [Fact]
@@ -102,9 +108,10 @@ namespace ZenScrumWebApiTests
             var oldProject = new Project { Id = Id, Name = "Name1" };
             var newProjectDto = new ProjectDto { Id = Id.ToString(), Name = "Name2" };
             // Arrange
-            mockZenScrumService.Setup(m => m.GetProjectById(Id.ToString())).Returns(oldProject);
-            mockZenScrumService.Setup(m => m.UpdateProject(Id.ToString(), It.IsAny<Project>()));
-            var controller = new ProjectsController(mockZenScrumService.Object, mapper);
+            mockProjectRepository.Setup(m => m.GetObjectById(Id.ToString())).Returns(oldProject);
+            mockProjectRepository.Setup(m => m.Update(Id.ToString(), It.IsAny<Project>()));
+            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
             var result = controller.Update(Id.ToString(), newProjectDto);

@@ -1,11 +1,9 @@
 ﻿using UserManager.Service;
 using Microsoft.Extensions.DependencyInjection;
 using ZenScrumCore.Services;
-using MongoDB.Driver;
 using DataRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace ZenScrumWebApi
 {
@@ -23,8 +21,10 @@ namespace ZenScrumWebApi
                 DatabaseName = configuration["database:databaseName"]
 
             });
-            services.AddSingleton<IDataRepository, MongoDataRepository>();
 
+            services.AddSingleton(typeof(IDataRepository<>), typeof(MongoDataRepository<>));
+
+            // used by Url resolver for auto mapping
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
