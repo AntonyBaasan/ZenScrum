@@ -70,5 +70,13 @@ namespace ZenScrumWebApi.Controllers
 
             return Ok(_mapper.Map<ProjectDto>(updatedProject));
         }
+        
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string s)
+        {
+            var foundProjects = _zenScrumService.SearchProject(s);
+
+            return Ok(_mapper.Map<ProjectDto>(foundProjects));
+        }
     }
 }
