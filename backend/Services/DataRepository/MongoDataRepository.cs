@@ -1,11 +1,12 @@
 ﻿using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using Domain;
 using MongoDB.Bson;
 
 namespace DataRepository
 {
-    public class MongoDataRepository<T> : IDataRepository<T>
+    public class MongoDataRepository<T> : IDataRepository<T> where T : BaseObject
     {
         private IMongoClient _client;
         private IMongoDatabase _database;
@@ -66,7 +67,9 @@ namespace DataRepository
         public void Update(string id, T obj)
         {
             var collenction = GetCollection();
-            collenction.ReplaceOne(Builders<T>.Filter.Eq("_id", ObjectId.Parse(id)), obj, new UpdateOptions() { IsUpsert = true });
+            var objId = ObjectId.Parse(id);
+            collenction.ReplaceOne(Builders<T>.Filter.Eq("_id", objId), obj, new UpdateOptions() {IsUpsert = true});
+            obj.Id = objId;
         }
 
         public void UpdateProperty(string id, string propertyName, object value)

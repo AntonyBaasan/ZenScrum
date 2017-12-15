@@ -23,6 +23,7 @@ namespace ZenScrumWebApi.Middlewares
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 await HandleExceptionAsync(context, ex);
             }
         }

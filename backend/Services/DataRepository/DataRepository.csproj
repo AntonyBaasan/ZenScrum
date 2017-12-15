@@ -7,4 +7,10 @@
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{A19973BA-C0D5-4877-8A2F-A69E191CFCC1}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
