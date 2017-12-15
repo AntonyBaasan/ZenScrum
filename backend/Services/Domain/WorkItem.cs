@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Bson;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -12,6 +13,7 @@ namespace Domain
         public List<Activity> History { get; set; }
         public List<string> Labels { get; set; }
         public List<Comment> Comments { get; set; }
-        public Iteration Iteration { get; set; }
+        public ObjectId Iteration { get; set; }
+        public ObjectId Project { get; set; }
     }
 }
