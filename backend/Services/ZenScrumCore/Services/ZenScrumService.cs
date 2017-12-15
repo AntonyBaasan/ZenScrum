@@ -4,7 +4,8 @@ using DataRepository;
 namespace ZenScrumCore.Services
 {
     /*
-     * Implementation of Unit Of Work
+     * Implementation of Unit Of Work. 
+     * Because we use MongoDB database for now we don't need Save method.
      * https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
      */
 

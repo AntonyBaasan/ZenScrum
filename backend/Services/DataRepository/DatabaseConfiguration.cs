@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-
-namespace DataRepository
+﻿namespace DataRepository
 {
     public class DatabaseConfiguration
     {

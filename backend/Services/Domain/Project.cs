@@ -1,5 +1,5 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -9,5 +9,6 @@ namespace Domain
         public string Details { get; set; }
         public string Moniker { get; set; }
         public bool IsPublic { get; set; }
+        public List<ObjectId> Members { get; set; }
     }
 }

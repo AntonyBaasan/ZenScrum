@@ -2,7 +2,7 @@
 
 namespace Domain
 {
-    public class WorkItem
+    public class WorkItem : BaseObject
     {
         public string Title { get; set; }
         public string Detail { get; set; }
@@ -12,6 +12,6 @@ namespace Domain
         public List<Activity> History { get; set; }
         public List<string> Labels { get; set; }
         public List<Comment> Comments { get; set; }
-        public Iteration iteration { get; set; }
+        public Iteration Iteration { get; set; }
     }
 }
