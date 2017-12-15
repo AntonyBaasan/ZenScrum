@@ -11,15 +11,18 @@ namespace ZenScrumCore.Services
 
     public class ZenScrumService : IZenScrumService
     {
-        public ZenScrumService(IDataRepository<Project> projectRepository, IDataRepository<Iteration> iterationRepository)
+        public ZenScrumService(IDataRepository<Project> projectRepository, IDataRepository<Iteration> iterationRepository, IDataRepository<WorkItem> workItemRepository)
         {
             ProjectRepository = projectRepository;
             IterationRepository = iterationRepository;
+            WorkItemRepository = workItemRepository;
         }
 
         public IDataRepository<Project> ProjectRepository { get; }
 
         public IDataRepository<Iteration> IterationRepository { get; }
+
+        public IDataRepository<WorkItem> WorkItemRepository {get;}
 
         //public Project[] GetProjects()
         //{

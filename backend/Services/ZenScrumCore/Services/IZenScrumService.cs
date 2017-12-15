@@ -7,5 +7,6 @@ namespace ZenScrumCore.Services
     {
         IDataRepository<Project> ProjectRepository { get; }
         IDataRepository<Iteration> IterationRepository { get; }
+        IDataRepository<WorkItem> WorkItemRepository { get; }
     }
 }

@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using Domain;
 using System.Collections.Generic;
 
-namespace Domain
+namespace ZenScrumWebApi.Dto
 {
-    public class WorkItem : BaseObject
+    public class WorkItemDto : BaseDto
     {
         public string Title { get; set; }
         public string Detail { get; set; }
@@ -13,8 +13,8 @@ namespace Domain
         public List<Activity> History { get; set; }
         public List<string> Labels { get; set; }
         public List<Comment> Comments { get; set; }
-        public ObjectId Iteration { get; set; }
-        public ObjectId Project { get; set; }
+        public string IterationId { get; set; }
+        public string ProjectId { get; set; }
         public List<WorkItem> Children { get; set; }
     }
 }

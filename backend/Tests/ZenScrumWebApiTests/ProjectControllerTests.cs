@@ -38,7 +38,7 @@ namespace ZenScrumWebApiTests
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
             mockProjectRepository.Setup(m => m.GetObjectById(objectId)).Returns(new Project { Id = ObjectId.Parse(objectId) });
-            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            fakeZenScrumService = GetFakeZenService();
             var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
@@ -56,7 +56,7 @@ namespace ZenScrumWebApiTests
             var objectId = ObjectId.GenerateNewId().ToString();
             // Arrange
             mockProjectRepository.Setup(m => m.GetObjectById(objectId)).Returns<Project>(null);
-            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            fakeZenScrumService = GetFakeZenService();
             var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
@@ -72,7 +72,7 @@ namespace ZenScrumWebApiTests
         {
             // Arrange
             mockProjectRepository.Setup(m => m.GetObjects()).Returns(MockUtils.GetMockProjects());
-            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            fakeZenScrumService = GetFakeZenService();
             var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
@@ -89,7 +89,7 @@ namespace ZenScrumWebApiTests
         {
             // Arrange
             mockProjectRepository.Setup(m => m.Delete("1"));
-            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            fakeZenScrumService = GetFakeZenService();
             var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
@@ -109,7 +109,7 @@ namespace ZenScrumWebApiTests
             // Arrange
             mockProjectRepository.Setup(m => m.GetObjectById(Id.ToString())).Returns(oldProject);
             mockProjectRepository.Setup(m => m.Update(Id.ToString(), It.IsAny<Project>()));
-            fakeZenScrumService = new ZenScrumService(mockProjectRepository.Object, null);
+            fakeZenScrumService = GetFakeZenService();
             var controller = new ProjectsController(fakeZenScrumService, mapper);
 
             // Act
@@ -119,6 +119,11 @@ namespace ZenScrumWebApiTests
             // Assert
             var p = (ProjectDto)okResult.Value;
             Assert.Equal(Id.ToString(), p.Id.ToString());
+        }
+
+        private ZenScrumService GetFakeZenService()
+        {
+             return new ZenScrumService(mockProjectRepository.Object, null, null);
         }
 
     }

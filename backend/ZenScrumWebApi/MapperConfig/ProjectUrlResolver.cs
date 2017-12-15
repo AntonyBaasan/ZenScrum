@@ -1,33 +1,19 @@
-﻿using AutoMapper;
-using Domain;
+﻿using Domain;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Routing;
-using ZenScrumWebApi.Controllers;
 using ZenScrumWebApi.Dto;
 
 namespace ZenScrumWebApi.MapperConfig
 {
-    public class ProjectUrlResolver : IValueResolver<Project, ProjectDto, string>
+    public class ProjectUrlResolver: BaseUrlResolver<Project, ProjectDto>
     {
-        IHttpContextAccessor _httpContextAccessor;
-
-        public ProjectUrlResolver()
+        public ProjectUrlResolver(): base()
         {
+            UrlGetLinkName = "ProjectGet";
         }
         
-        public ProjectUrlResolver(IHttpContextAccessor httpContextAccessor)
+        public ProjectUrlResolver(IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public string Resolve(Project source, ProjectDto destination, string destMember, ResolutionContext context)
-        {
-            // TODO: this case added to pass unit tests, have to fix (Need to solve DI of IHttpContextAccessor)
-            if(_httpContextAccessor == null)
-                return "";
-            
-            var url = (UrlHelper) _httpContextAccessor.HttpContext.Items[BaseController.UrlHelperStr];
-            return url.Link("ProjectGet", new {id = source.Id});
+            UrlGetLinkName = "ProjectGet";
         }
     }
 }
